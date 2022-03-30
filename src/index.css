@@ -2,17 +2,219 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 @layer components {
+	.sidebar-container {
+		@apply absolute top-0 left-0 h-screen w-16 m-0 flex flex-col bg-gray-400 text-white shadow-lg 
+		items-center dark:bg-gray-900;
+	}
 	.sidebar-icon {
 		@apply relative flex items-center justify-center h-12 w-12 mt-2 mb-2
-        mx-auto bg-gray-800 text-green-500 hover:text-white 
+        mx-auto bg-gray-100 text-green-500 hover:text-white 
         hover:bg-green-600 rounded-3xl hover:rounded-xl transition-all 
-        duration-300 ease-linear;
+        duration-200 ease-linear cursor-pointer first:text-gray-700
+		after:h-5 after:w-2 after:bg-gray-900 dark:after:bg-gray-400 after:absolute after:top-1/2 after:-left-13px
+		after:rounded-br after:rounded-tr after:-translate-y-2/4 after:transition-all
+		after:scale-0 after:duration-200 hover:after:opacity-100 hover:after:scale-100 
+		dark:bg-gray-700 dark:first:text-gray-400;
+	}
+
+	.sidebar-selected {
+		@apply after:h-10 after:scale-100 rounded-xl bg-green-600 text-white;
 	}
 
 	.sidebar-tooltip {
-		@apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md 
-        text-white bg-gray-900 text-sm font-bold transition-all duration-100 
-        scale-0 origin-left;
+		@apply absolute w-auto px-4 py-2 m-2 min-w-max left-14 rounded-md shadow-md 
+        dark:text-white dark:bg-gray-900 bg-gray-100 text-gray-600 text-sm font-bold transition-all duration-100 
+        scale-0 origin-left after:absolute after:block after:top-3 after:-left-5px after:border-b-6 after:border-r-6 after:border-t-6 after:border-t-transparent dark:after:border-r-gray-900 
+		after:border-b-transparent after:border-r-gray-100;
 	}
+
+	.sidebar-hr {
+		@apply bg-gray-800 border border-gray-450 opacity-30 dark:opacity-100 w-9 last:rounded-full mx-2 dark:border-gray-700;
+	}
+
+	.top-navigation {
+		@apply flex flex-row items-center justify-evenly bg-white
+    	w-full min-h-16 m-0 border-b dark:border-b-gray-900 border-b-gray-450  border-opacity-60 shadow-sm dark:bg-gray-500;
+	}
+
+	.top-navigation-icon {
+		@apply dark:text-gray-400 mr-4  dark:hover:text-gray-100 last-of-type:ml-4
+    	cursor-pointer text-gray-550 hover:text-gray-700;
+	}
+
+	.title-hashtag {
+		@apply ml-4 text-gray-300;
+	}
+
+	.title-text {
+		@apply text-xl dark:text-gray-200 tracking-wider font-semibold mr-auto
+    	 ml-2 transition duration-300 ease-in-out text-gray-800;
+	}
+
+	.search {
+		@apply w-1/6 flex dark:bg-gray-900 bg-gray-350 text-gray-300
+		px-2 h-9 rounded-md transition duration-300 ease-in-out;
+	}
+
+	.search-input {
+		@apply w-full font-sans bg-transparent outline-none dark:text-gray-400 text-gray-800
+		dark:placeholder-gray-300 pl-1 pr-2 rounded placeholder-gray-300;
+	}
+
+	.channel-bar {
+		@apply dark:bg-gray-800 ml-16 w-72 h-screen flex flex-col bg-gray-200;
+	}
+
+	.channel-header {
+		@apply flex items-center justify-start h-16 m-0 p-0 border-b dark:border-b-gray-900 border-opacity-60
+		shadow-sm mt-1 border-b-gray-450;
+	}
+
+	.channel-header-text {
+		@apply text-lg tracking-wider font-bold dark:text-gray-200 ml-6 text-gray-800;
+	}
+
+	.channel-container {
+		@apply p-1 overflow-auto h-screen mr-2px;
+	}
+
+	.dropdown {
+		@apply text-gray-300 font-semibold p-1 pb-5 pt-1 first-of-type:mt-1;
+	}
+
+	.dropdown-header {
+		@apply flex dark:hover:text-gray-400 hover:text-gray-700 cursor-pointer text-sm tracking-wide;
+	}
+
+	.dropdown-selection {
+		@apply flex items-center dark:hover:bg-gray-700 hover:bg-gray-250 hover:rounded-md cursor-pointer hover:text-gray-700 ml-1
+		dark:hover:text-gray-250 mt-1 py-1 px-2;
+	}
+
+	.dropdown-selected {
+		@apply bg-gray-400 rounded text-gray-800 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-gray-200;
+	}
+
+	.dropdown-selection-text {
+		@apply text-base ml-1;
+	}
+
+	.chat-container {
+		@apply flex flex-col w-screen h-screen dark:bg-gray-500 bg-opacity-95 bg-white;
+	}
+
+	.chat-content {
+		@apply flex overflow-auto dark:bg-gray-500 bg-white;
+	}
+
+	.chat-list {
+		@apply dark:bg-gray-500 bg-white overflow-auto h-screen;
+	}
+
+	.chat-input-container {
+		@apply flex dark:bg-gray-500 bg-gray-200 dark:brightness-121 p-3 rounded-md mx-5 mb-6 mt-1 items-center justify-center;
+	}
+
+	.chat-input {
+		@apply mr-auto w-full bg-transparent font-sans outline-none dark:text-gray-200 text-gray-800  
+		placeholder-gray-550;
+	}
+
+	.message {
+		@apply w-full flex flex-row items-start py-1 my-4 px-5 dark:hover:bg-gray-600 hover:bg-gray-50;
+	}
+
+	.message-content {
+		@apply flex flex-col justify-start ml-4;
+	}
+
+	.message-text {
+		@apply text-base dark:text-gray-200 whitespace-normal text-gray-800;
+	}
+
+	.message-owner {
+		@apply text-base font-semibold dark:text-gray-200 cursor-pointer text-gray-800;
+	}
+
+	.message-avatar-wrapper {
+		@apply flex flex-col items-center w-14 mt-1;
+	}
+
+	.message-avatar {
+		@apply w-10 h-full rounded-full shadow-md object-cover dark:bg-gray-100 cursor-pointer bg-gray-400;
+	}
+
+	.message-timestamp {
+		@apply text-xs text-left font-semibold dark:text-gray-450 ml-2 text-gray-900;
+	}
+
+	.message-container {
+		@apply flex flex-col overflow-auto flex-2;
+	}
+
+	.members-list {
+		@apply bg-gray-200 dark:bg-gray-800 w-56 ml-1 px-2 pb-6 overflow-auto mr-2px;
+	}
+
+	.members-heading {
+		@apply text-xs tracking-wide dark:text-gray-300 text-gray-550 font-bold mb-1 mt-6 ml-2 uppercase;
+	}
+
+	.members-online {
+		@apply dark:text-gray-400 text-gray-800;
+	}
+
+	.members-offline {
+		@apply dark:text-gray-450 text-gray-550;
+	}
+
+	.member {
+		@apply flex items-center dark:hover:bg-gray-700 hover:rounded-sm dark:hover:text-gray-200 px-2 py-6px cursor-pointer
+		hover:bg-gray-250 hover:text-gray-600;
+	}
+
+	.member-offline {
+		@apply opacity-50 hover:opacity-100;
+	}
+
+	.member-avatar {
+		@apply w-8 h-full rounded-full shadow-md object-cover mr-3 dark:bg-gray-100 bg-gray-400;
+	}
+
+	.member-name {
+		@apply font-semibold;
+	}
+}
+
+.scrollbar::-webkit-scrollbar {
+	@apply w-2;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+	@apply bg-gray-350 dark:bg-gray-800 bg-opacity-80 rounded-full m-1;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+	@apply bg-clip-padding dark:bg-gray-900 rounded-full border-4 bg-gray-425;
+}
+
+.scrollbar-2::-webkit-scrollbar {
+	@apply w-1;
+}
+
+.scrollbar-2::-webkit-scrollbar-track {
+	@apply dark:bg-gray-800 bg-opacity-80 rounded-full m-1 bg-gray-200;
+}
+
+.scrollbar-2::-webkit-scrollbar-thumb {
+	@apply bg-clip-padding dark:bg-gray-900 rounded-full border-4 bg-gray-450;
 }
